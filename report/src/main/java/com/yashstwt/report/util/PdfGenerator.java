@@ -5,22 +5,23 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import java.io.FileOutputStream;
+import java.io.ByteArrayOutputStream;
 
 public class PdfGenerator {
 
-    public void generatePdf(String content) {
-        try{
+    public static byte[] generatePdf(String content) {
+        try(ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             Document document = new Document();
-            String fileName  = "report-"+System.currentTimeMillis()+".pdf";
-            PdfWriter.getInstance(document,new FileOutputStream(fileName));
+            PdfWriter.getInstance(document,baos);
             document.open();
             document.add(new Paragraph("Automatic PDF Report"));
             document.add(new Paragraph(content));
             document.close();
-            System.out.println("PDF generated: " + fileName);
+            System.out.println("PDF generated: ");
+            return baos.toByteArray();
         } catch (Exception e) {
             System.out.println("Error generating PDF: " + e.getMessage());
+            return null;
         }
     }
 }
