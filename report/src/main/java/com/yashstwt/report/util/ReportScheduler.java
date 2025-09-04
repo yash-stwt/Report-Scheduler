@@ -2,7 +2,9 @@ package com.yashstwt.report.util;
 
 import com.yashstwt.report.service.GenerateReportServie;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ReportScheduler {
 
     private final GenerateReportServie reportService;
